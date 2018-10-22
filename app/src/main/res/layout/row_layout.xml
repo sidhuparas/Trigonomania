@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="2dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="2dp"
+    android:layout_marginBottom="5dp"
+    android:background="@android:color/transparent"
+    android:clickable="true"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/trig_func"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Sin(x):"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/trig_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/trig_func"
+        android:paddingLeft="10dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingEnd="7dp"
+        android:paddingRight="7dp"
+        android:textAppearance="?android:textAppearanceLarge"
+        tools:text="Value"
+        android:paddingStart="10dp" />
+
+</RelativeLayout>
