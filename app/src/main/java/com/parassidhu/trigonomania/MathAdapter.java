@@ -23,6 +23,12 @@ public class MathAdapter extends RecyclerView.Adapter<MathAdapter.ViewHolder> {
             "Cot(\u03B8)"
     };
 
+    private float[] trigValues;
+
+    MathAdapter(float[] trigValues) {
+        this.trigValues = trigValues;
+    }
+
     @NonNull
     @Override
     public MathAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -53,7 +59,7 @@ public class MathAdapter extends RecyclerView.Adapter<MathAdapter.ViewHolder> {
 
         void bind(int position) {
             trigFunc.setText(trigonometricFunctions[position]);
-            trigValue.setText("1.000");
+            trigValue.setText(String.valueOf(trigValues[position]));
         }
     }
 }
