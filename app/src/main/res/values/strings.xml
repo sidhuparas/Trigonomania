@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Trigonomania</string>
+
+    <string-array name="tabs">
+        <item>1st Method</item>
+        <item>2nd Method</item>
+    </string-array>
+
+    <string-array name="angle_choice">
+        <item>Phi (&#966;)</item>
+        <item>Theta (&#952;)</item>
+    </string-array>
+
+    <string-array name="side_choice">
+        <item>AB</item>
+        <item>AC</item>
+        <item>BC</item>
+    </string-array>
 </resources>

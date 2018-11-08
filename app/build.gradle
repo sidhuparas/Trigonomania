@@ -31,7 +31,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
+    // Miscellaneous
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+    implementation 'lib.kingja.switchbutton:switchbutton:1.1.7'
 
     // ButterKnife
     implementation 'com.jakewharton:butterknife:9.0.0-rc1'

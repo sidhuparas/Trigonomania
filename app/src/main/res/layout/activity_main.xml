@@ -11,6 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <lib.kingja.switchbutton.SwitchMultiButton
+            android:id="@+id/switch_angle"
+            style="@style/SwitchStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:switchTabs="@array/tabs"/>
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="168dp"
@@ -22,40 +30,14 @@
             android:layout_marginRight="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/triangle" />
+            app:layout_constraintTop_toBottomOf="@+id/switch_angle"
+            app:srcCompat="@drawable/triangle_img" />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/angle_et"
-            android:layout_width="0dp"
+        <include layout="@layout/first_method"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:hint="Value of Angle"
-            android:minWidth="150dp"
-            app:layout_constraintEnd_toStartOf="@+id/side_et"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:met_floatingLabel="highlight" />
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/side_et"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:hint="Side AB"
-            android:minWidth="150dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/angle_et"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:met_floatingLabel="highlight" />
+            android:layout_width="match_parent"
+            android:id="@+id/first_method"
+            app:layout_constraintTop_toBottomOf="@id/imageView"/>
 
         <Button
             android:id="@+id/submit_btn"
@@ -63,15 +45,15 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:background="@color/colorAccent"
             android:text="Submit"
             android:textColor="@android:color/background_light"
-            android:background="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/side_et" />
+            app:layout_constraintTop_toBottomOf="@+id/first_method" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/resultList"
