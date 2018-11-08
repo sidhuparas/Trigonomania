@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <lib.kingja.switchbutton.SwitchMultiButton
-        android:id="@+id/switch_angle"
+        android:id="@+id/switch_method"
         style="@style/SwitchStyle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -35,7 +35,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch_angle"
+        app:layout_constraintTop_toBottomOf="@+id/switch_method"
         app:met_floatingLabel="highlight" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -52,6 +52,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/angle_et"
-        app:layout_constraintTop_toBottomOf="@+id/switch_angle"
+        app:layout_constraintTop_toBottomOf="@+id/switch_method"
         app:met_floatingLabel="highlight" />
 </android.support.constraint.ConstraintLayout>

@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <lib.kingja.switchbutton.SwitchMultiButton
+        android:id="@+id/switch_side2"
+        style="@style/SwitchStyle"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/side2_et"
+        app:layout_constraintTop_toTopOf="parent"
+        app:switchTabs="@array/side_choice" />
+
+    <lib.kingja.switchbutton.SwitchMultiButton
+        android:id="@+id/switch_side1"
+        style="@style/SwitchStyle"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:switchTabs="@array/side_choice" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/side1_et"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:hint="Side 1"
+        android:minWidth="150dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch_side2"
+        app:met_floatingLabel="highlight" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/side2_et"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="8dp"
+        android:hint="Side 2"
+        android:minWidth="150dp"
+        app:layout_constraintStart_toEndOf="@+id/side1_et"
+        app:layout_constraintTop_toBottomOf="@+id/switch_side2"
+        app:met_floatingLabel="highlight" />
 </android.support.constraint.ConstraintLayout>

@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <lib.kingja.switchbutton.SwitchMultiButton
-            android:id="@+id/switch_angle"
+            android:id="@+id/switch_method"
             style="@style/SwitchStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
             android:layout_marginRight="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/switch_angle"
+            app:layout_constraintTop_toBottomOf="@+id/switch_method"
             app:srcCompat="@drawable/triangle_img" />
 
         <include layout="@layout/first_method"
@@ -38,6 +38,12 @@
             android:layout_width="match_parent"
             android:id="@+id/first_method"
             app:layout_constraintTop_toBottomOf="@id/imageView"/>
+
+        <include layout="@layout/second_method"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/second_method"
+            app:layout_constraintTop_toBottomOf="@id/first_method"/>
 
         <Button
             android:id="@+id/submit_btn"
@@ -53,7 +59,7 @@
             android:textColor="@android:color/background_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/first_method" />
+            app:layout_constraintTop_toBottomOf="@+id/second_method" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/resultList"
