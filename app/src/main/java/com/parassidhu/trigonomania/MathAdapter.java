@@ -23,9 +23,9 @@ public class MathAdapter extends RecyclerView.Adapter<MathAdapter.ViewHolder> {
             "Cot(\u03B8)"
     };
 
-    private float[] trigValues;
+    private double[] trigValues;
 
-    MathAdapter(float[] trigValues) {
+    MathAdapter(double[] trigValues) {
         this.trigValues = trigValues;
     }
 

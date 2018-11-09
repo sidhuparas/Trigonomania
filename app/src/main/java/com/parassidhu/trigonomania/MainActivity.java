@@ -19,12 +19,20 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.resultList) RecyclerView resultList;
     @BindView(R.id.submit_btn) Button submitBtn;
-    @BindView(R.id.angle_et) MaterialEditText angleEditText;
-    @BindView(R.id.side_et) MaterialEditText sideEditText;
     @BindView(R.id.switch_method) SwitchMultiButton switchMethod;
 
     @BindView(R.id.first_method) ConstraintLayout firstMethod;
     @BindView(R.id.second_method) ConstraintLayout secondMethod;
+
+    @BindView(R.id.angle_et) MaterialEditText angleEditText;
+    @BindView(R.id.side_et) MaterialEditText sideEditText;
+    @BindView(R.id.side1_et) MaterialEditText side1EditText;
+    @BindView(R.id.side2_et) MaterialEditText side2EditText;
+
+    @BindView(R.id.switch_angle) SwitchMultiButton switchAngle;
+    @BindView(R.id.switch_side) SwitchMultiButton switchSide;
+    @BindView(R.id.switch_side1) SwitchMultiButton switchSide1;
+    @BindView(R.id.switch_side2) SwitchMultiButton switchSide2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +51,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    int valueOfAngle = Integer.valueOf(angleEditText.getText().toString());
-                    int valueOfSide = Integer.valueOf(sideEditText.getText().toString());
-                    setupResult(MathUtils.getTrigonometricValues(valueOfAngle, valueOfSide));
-                }catch (Exception e){
+                    if (switchMethod.getSelectedTab() == 0)
+                        handleFirstMethod();
+                    else
+                        handleSecondMethod();
+                } catch (Exception e) {
                     Toast.makeText(MainActivity.this, "Please fill correct values!",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -56,10 +65,10 @@ public class MainActivity extends AppCompatActivity {
         switchMethod.setOnSwitchListener(new SwitchMultiButton.OnSwitchListener() {
             @Override
             public void onSwitch(int position, String tabText) {
-                if (position==0){
+                if (position == 0) {
                     firstMethod.setVisibility(View.VISIBLE);
                     secondMethod.setVisibility(View.GONE);
-                }else {
+                } else {
                     firstMethod.setVisibility(View.GONE);
                     secondMethod.setVisibility(View.VISIBLE);
                 }
@@ -67,11 +76,52 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setupResult(float[] trigValues) {
+    private void handleFirstMethod() {
+        int angleSwitch = switchAngle.getSelectedTab();
+        int sideSwitch = switchSide.getSelectedTab();
+
+        String angle, side;
+
+        if (angleSwitch == 0)
+            angle = "Phi";
+        else
+            angle = "Theta";
+
+        if (sideSwitch == 0)
+            side = "AB";
+        else if (sideSwitch == 1)
+            side = "AC";
+        else
+            side = "BC";
+
+        double valueOfAngle = Double.valueOf(angleEditText.getText().toString());
+        double valueOfSide = Double.valueOf(sideEditText.getText().toString());
+
+        performCalculationsForFirstMethod(angle, side, valueOfAngle, valueOfSide);
+
+        //setupResult(MathUtils.getTrigonometricValues(valueOfAngle, valueOfSide));
+    }
+
+    private void performCalculationsForFirstMethod(String angle, String side,
+                                                   double valueOfAngle, double valueOfSide) {
+        if (angle.equals("Theta"))
+            setupResult(MathUtils.performCalculationsForTheta(side, valueOfAngle, valueOfSide));
+        else
+            setupResult(MathUtils.performCalculationsForPhi(side, valueOfAngle, valueOfSide));
+    }
+
+    private void handleSecondMethod() {
+
+    }
+
+
+    private void setupResult(double[] trigValues) {
         resultList.setLayoutManager(new GridLayoutManager(this, 2));
 
         MathAdapter adapter = new MathAdapter(trigValues);
 
         resultList.setAdapter(adapter);
     }
+
+
 }
