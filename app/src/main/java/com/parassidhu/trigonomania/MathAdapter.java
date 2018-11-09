@@ -7,26 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MathAdapter extends RecyclerView.Adapter<MathAdapter.ViewHolder> {
 
-    private String[] trigonometricFunctions = {
-            "Sin(\u03B8)",
-            "Cos(\u03B8)",
-            "Tan(\u03B8)",
-            "Cosec(\u03B8)",
-            "Sec(\u03B8)",
-            "Cot(\u03B8)"
-    };
-
     private double[] trigValues;
+    private boolean theta;
 
-    MathAdapter(double[] trigValues) {
+    MathAdapter(double[] trigValues, boolean theta) {
         this.trigValues = trigValues;
+        this.theta = theta;
     }
 
     @NonNull
@@ -44,7 +35,7 @@ public class MathAdapter extends RecyclerView.Adapter<MathAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return trigonometricFunctions.length;
+        return trigValues.length;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -58,7 +49,15 @@ public class MathAdapter extends RecyclerView.Adapter<MathAdapter.ViewHolder> {
         }
 
         void bind(int position) {
-            trigFunc.setText(trigonometricFunctions[position]);
+            if (trigValues.length == 6) {
+                trigFunc.setText(MathUtils.trigonometricFunctions[position]);
+            } else {
+                if (theta)
+                    trigFunc.setText(MathUtils.sidesPlaceHolderTheta[position]);
+                else
+                    trigFunc.setText(MathUtils.sidesPlaceHolderPhi[position]);
+            }
+
             trigValue.setText(String.valueOf(trigValues[position]));
         }
     }

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -116,9 +117,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setupResult(double[] trigValues) {
-        resultList.setLayoutManager(new GridLayoutManager(this, 2));
+        int columns = 2;
 
-        MathAdapter adapter = new MathAdapter(trigValues);
+        if (trigValues.length == 3)
+            columns = 1;
+
+        resultList.setLayoutManager(new GridLayoutManager(this, columns));
+
+        int angleSwitch = switchAngle.getSelectedTab();
+        boolean theta = angleSwitch != 0;
+
+        MathAdapter adapter = new MathAdapter(trigValues, theta);
 
         resultList.setAdapter(adapter);
     }

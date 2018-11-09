@@ -1,15 +1,44 @@
 package com.parassidhu.trigonomania;
 
-import android.util.Log;
-
 class MathUtils {
 
-    public static double[] makeArray(double value1, double value2, double value3,
-                                     double value4, double value5, double value6) {
+    private static final String PERPENDICULAR = "Perpendicular";
+    private static final String BASE = "Base";
+    private static final String HYPOTENUSE = "Hypotenuse";
+
+    private static double[] makeArray(double value1, double value2, double value3,
+                                      double value4, double value5, double value6) {
         return new double[]{
                 value1, value2, value3, value4, value5, value6
         };
     }
+
+    private static double[] makeArray(double value1, double value2, double value3) {
+        return new double[]{
+                value1, value2, value3
+        };
+    }
+
+    static String[] trigonometricFunctions = {
+            "Sin(\u03B8)",
+            "Cos(\u03B8)",
+            "Tan(\u03B8)",
+            "Cosec(\u03B8)",
+            "Sec(\u03B8)",
+            "Cot(\u03B8)"
+    };
+
+    static String[] sidesPlaceHolderTheta = {
+            "Perpendicular (AB):",
+            "Base (BC):",
+            "Hypotenuse (AC):"
+    };
+
+    static String[] sidesPlaceHolderPhi = {
+            "Perpendicular (BC):",
+            "Base (AB):",
+            "Hypotenuse (AC):"
+    };
 
     private static double getSine(double angle) { return Math.sin(Math.toRadians(angle)); }
 
@@ -23,29 +52,48 @@ class MathUtils {
 
     private static double getCosecant(double angle) { return (1.0 / Math.sin(Math.toRadians(angle))); }
 
-    public static double[] performCalculationsForTheta(String side,
-                                                       double valueOfAngle, double valueOfSide) {
+    static double[] performCalculationsForTheta(String side,
+                                                double valueOfAngle, double valueOfSide) {
         switch (side) {
             case "AB":
-                triangleCalculation("Perpendicular", valueOfAngle, valueOfSide);
-                break;
+                return triangleCalculation(PERPENDICULAR, valueOfAngle, valueOfSide);
+            case "BC":
+                return triangleCalculation(BASE, valueOfAngle, valueOfSide);
+            case "AC":
+                return triangleCalculation(HYPOTENUSE, valueOfAngle, valueOfSide);
         }
         return makeArray(1,1,1,1,1,1);
     }
 
-    public static double[] performCalculationsForPhi(String side,
-                                                     double valueOfAngle, double valueOfSide) {
-
+    static double[] performCalculationsForPhi(String side,
+                                              double valueOfAngle, double valueOfSide) {
+        switch (side) {
+            case "AB":
+                return triangleCalculation(BASE, valueOfAngle, valueOfSide);
+            case "BC":
+                return triangleCalculation(PERPENDICULAR, valueOfAngle, valueOfSide);
+            case "AC":
+                return triangleCalculation(HYPOTENUSE, valueOfAngle, valueOfSide);
+        }
         return makeArray(1,1,1,1,1,1);
     }
 
-    static void triangleCalculation(String sideName, double valueOfAngle, double valueOfSide) {
-        if (sideName.equals("Perpendicular")) {
+    // Create array with elements in order:
+    // Perpendicular, Base and Hypotenuse
+    private static double[] triangleCalculation(String sideName, double valueOfAngle, double valueOfSide) {
+        if (sideName.equals(PERPENDICULAR)) {
             double hypo = valueOfSide / getSine(valueOfAngle);
-            Log.d("Hypotenuse:", "triangleCalculation: " + calculateSideOfTriangle(valueOfSide, null, hypo));
+            return makeArray(valueOfSide, calculateSideOfTriangle(valueOfSide, null, hypo), hypo);
+        }else if (sideName.equals(BASE)){
+            double hypo = valueOfSide / getCosine(valueOfAngle);
+            return makeArray(calculateSideOfTriangle(null, valueOfSide, hypo), valueOfSide, hypo);
+        } else {
+            double perp = valueOfSide * getSine(valueOfAngle);
+            return makeArray(perp, calculateSideOfTriangle(perp, null, valueOfSide), valueOfSide);
         }
     }
 
+    // Given two sides, calculate the third
     private static double calculateSideOfTriangle(Double perp, Double base, Double hypo){
         if (hypo == null)
             return Math.sqrt((perp*perp) + (base*base));
