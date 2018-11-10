@@ -78,6 +78,18 @@ class MathUtils {
         return makeArray(1,1,1,1,1,1);
     }
 
+    public static double[] trigonometricCalculations(String side1, String side2,
+                                                     double valueOfSide1, double valueOfSide2){
+        String AB = "AB";
+        String AC = "AC";
+        String BC = "BC";
+
+        if (!side1.equals(AC) && !side2.equals(AC))
+            return new double[]{calculateSideOfTriangle(valueOfSide1, valueOfSide2, null)};
+
+        return new double[]{1};
+    }
+
     // Create array with elements in order:
     // Perpendicular, Base and Hypotenuse
     private static double[] triangleCalculation(String sideName, double valueOfAngle, double valueOfSide) {

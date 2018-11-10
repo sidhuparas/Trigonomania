@@ -54,8 +54,12 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     if (switchMethod.getSelectedTab() == 0)
                         handleFirstMethod();
-                    else
-                        handleSecondMethod();
+                    else {
+                        if (switchSide1.getSelectedTab() != switchSide2.getSelectedTab())
+                            handleSecondMethod();
+                        else
+                            Toast.makeText(MainActivity.this, "Please enter values of two distinct sides.", Toast.LENGTH_SHORT).show();
+                    }
                 } catch (Exception e) {
                     Toast.makeText(MainActivity.this, "Please fill correct values!",
                             Toast.LENGTH_SHORT).show();
@@ -88,19 +92,12 @@ public class MainActivity extends AppCompatActivity {
         else
             angle = "Theta";
 
-        if (sideSwitch == 0)
-            side = "AB";
-        else if (sideSwitch == 1)
-            side = "AC";
-        else
-            side = "BC";
+        side = assignSide(sideSwitch);
 
         double valueOfAngle = Double.valueOf(angleEditText.getText().toString());
         double valueOfSide = Double.valueOf(sideEditText.getText().toString());
 
         performCalculationsForFirstMethod(angle, side, valueOfAngle, valueOfSide);
-
-        //setupResult(MathUtils.getTrigonometricValues(valueOfAngle, valueOfSide));
     }
 
     private void performCalculationsForFirstMethod(String angle, String side,
@@ -112,9 +109,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleSecondMethod() {
+        int side1Switch = switchSide1.getSelectedTab();
+        int side2Switch = switchSide2.getSelectedTab();
 
+        String side1, side2;
+
+        side1 = assignSide(side1Switch);
+        side2 = assignSide(side2Switch);
+
+        double valueOfSide1 = Double.valueOf(side1EditText.getText().toString());
+        double valueOfSide2 = Double.valueOf(side2EditText.getText().toString());
+        
+        performCalculationsForSecondMethod(side1, side2, valueOfSide1, valueOfSide2);
     }
 
+    private void performCalculationsForSecondMethod(String side1, String side2,
+                                                    double valueOfSide1, double valueOfSide2) {
+        setupResult(MathUtils.trigonometricCalculations(side1, side2, valueOfSide1, valueOfSide2));
+    }
+
+    private String assignSide(int sideSwitch){
+        if (sideSwitch == 0)
+            return "AB";
+        else if (sideSwitch == 1)
+            return "AC";
+        else
+            return "BC";
+    }
 
     private void setupResult(double[] trigValues) {
         int columns = 2;
@@ -131,6 +152,4 @@ public class MainActivity extends AppCompatActivity {
 
         resultList.setAdapter(adapter);
     }
-
-
 }
