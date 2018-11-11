@@ -58,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
                         if (switchSide1.getSelectedTab() != switchSide2.getSelectedTab())
                             handleSecondMethod();
                         else
-                            Toast.makeText(MainActivity.this, "Please enter values of two distinct sides.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Please enter values of two distinct sides.",
+                                    Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     Toast.makeText(MainActivity.this, "Please fill correct values!",

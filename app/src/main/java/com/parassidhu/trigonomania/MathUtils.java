@@ -19,13 +19,25 @@ class MathUtils {
         };
     }
 
+    private static double[] makeArrayOfTrigValues(double perp,
+                                                  double base, double hypo) {
+        return new double[]{
+                getSine(perp,hypo),
+                getCosine(base, hypo),
+                getTangent(perp, base),
+                getCotangent(base, perp),
+                getSecant(hypo, base),
+                getCosecant(hypo, perp)
+        };
+    }
+
     static String[] trigonometricFunctions = {
             "Sin(\u03B8)",
             "Cos(\u03B8)",
             "Tan(\u03B8)",
-            "Cosec(\u03B8)",
+            "Cot(\u03B8)",
             "Sec(\u03B8)",
-            "Cot(\u03B8)"
+            "Cosec(\u03B8)"
     };
 
     static String[] sidesPlaceHolderTheta = {
@@ -39,7 +51,7 @@ class MathUtils {
             "Base (AB):",
             "Hypotenuse (AC):"
     };
-
+    // -----------------------------------------------------------------------------------
     private static double getSine(double angle) { return Math.sin(Math.toRadians(angle)); }
 
     private static double getCosine(double angle) { return Math.cos(Math.toRadians(angle)); }
@@ -51,6 +63,19 @@ class MathUtils {
     private static double getSecant(double angle) { return (1.0 / Math.cos(Math.toRadians(angle))); }
 
     private static double getCosecant(double angle) { return (1.0 / Math.sin(Math.toRadians(angle))); }
+    // -----------------------------------------------------------------------------------
+    private static double getSine(double perp, double hypo) { return perp / hypo; }
+
+    private static double getCosine(double base, double hypo) { return base / hypo; }
+
+    private static double getTangent(double perp, double base) { return perp / base; }
+
+    private static double getCotangent(double base, double perp) {return base / perp; }
+
+    private static double getSecant(double hypo, double base) { return hypo / base; }
+
+    private static double getCosecant(double hypo, double perp) { return hypo / perp;}
+    // -----------------------------------------------------------------------------------
 
     static double[] performCalculationsForTheta(String side,
                                                 double valueOfAngle, double valueOfSide) {
@@ -62,7 +87,7 @@ class MathUtils {
             case "AC":
                 return triangleCalculation(HYPOTENUSE, valueOfAngle, valueOfSide);
         }
-        return makeArray(1,1,1,1,1,1);
+        return makeArray(1, 1, 1, 1, 1, 1);
     }
 
     static double[] performCalculationsForPhi(String side,
@@ -75,19 +100,48 @@ class MathUtils {
             case "AC":
                 return triangleCalculation(HYPOTENUSE, valueOfAngle, valueOfSide);
         }
-        return makeArray(1,1,1,1,1,1);
+        return makeArray(1, 1, 1, 1, 1, 1);
     }
 
     public static double[] trigonometricCalculations(String side1, String side2,
-                                                     double valueOfSide1, double valueOfSide2){
+                                                     double valueOfSide1, double valueOfSide2) {
         String AB = "AB";
         String AC = "AC";
         String BC = "BC";
 
-        if (!side1.equals(AC) && !side2.equals(AC))
-            return new double[]{calculateSideOfTriangle(valueOfSide1, valueOfSide2, null)};
+        Double perp = null;
+        Double base = null;
+        Double hypo = null;
 
-        return new double[]{1};
+        if (side1.equals(AB)) {
+            perp = valueOfSide1;
+            if (side2.equals(AC))
+                hypo = valueOfSide2;
+            else
+                base = valueOfSide2;
+        } else if (side1.equals(AC)) {
+            hypo = valueOfSide1;
+            if (side2.equals(AB))
+                perp = valueOfSide2;
+            else
+                base = valueOfSide2;
+        } else {
+            base = valueOfSide1;
+            if (side2.equals(AB))
+                perp = valueOfSide2;
+            else
+                hypo = valueOfSide2;
+        }
+
+        if (perp == null)
+            perp = calculateSideOfTriangle(null, base, hypo);
+        else if (base == null)
+            base = calculateSideOfTriangle(perp, null, hypo);
+        else
+            hypo =calculateSideOfTriangle(perp, base, null);
+
+
+        return makeArrayOfTrigValues(perp, base, hypo);
     }
 
     // Create array with elements in order:
@@ -96,7 +150,7 @@ class MathUtils {
         if (sideName.equals(PERPENDICULAR)) {
             double hypo = valueOfSide / getSine(valueOfAngle);
             return makeArray(valueOfSide, calculateSideOfTriangle(valueOfSide, null, hypo), hypo);
-        }else if (sideName.equals(BASE)){
+        } else if (sideName.equals(BASE)) {
             double hypo = valueOfSide / getCosine(valueOfAngle);
             return makeArray(calculateSideOfTriangle(null, valueOfSide, hypo), valueOfSide, hypo);
         } else {
@@ -106,12 +160,12 @@ class MathUtils {
     }
 
     // Given two sides, calculate the third
-    private static double calculateSideOfTriangle(Double perp, Double base, Double hypo){
+    private static double calculateSideOfTriangle(Double perp, Double base, Double hypo) {
         if (hypo == null)
-            return Math.sqrt((perp*perp) + (base*base));
+            return Math.sqrt((perp * perp) + (base * base));
         else if (perp == null)
-            return Math.sqrt((hypo*hypo) - (base*base));
+            return Math.sqrt((hypo * hypo) - (base * base));
         else
-            return Math.sqrt((hypo*hypo) - (perp*perp));
+            return Math.sqrt((hypo * hypo) - (perp * perp));
     }
 }
