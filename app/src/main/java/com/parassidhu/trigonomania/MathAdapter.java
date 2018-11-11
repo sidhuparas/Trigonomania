@@ -58,6 +58,10 @@ public class MathAdapter extends RecyclerView.Adapter<MathAdapter.ViewHolder> {
                     trigFunc.setText(MathUtils.sidesPlaceHolderPhi[position]);
             }
 
+            for (int i = 0; i < trigValues.length; i++) {
+                trigValues[i] = Math.round(trigValues[i] * 100) / 100.0;
+            }
+
             trigValue.setText(String.valueOf(trigValues[position]));
         }
     }

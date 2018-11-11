@@ -6,13 +6,6 @@ class MathUtils {
     private static final String BASE = "Base";
     private static final String HYPOTENUSE = "Hypotenuse";
 
-    private static double[] makeArray(double value1, double value2, double value3,
-                                      double value4, double value5, double value6) {
-        return new double[]{
-                value1, value2, value3, value4, value5, value6
-        };
-    }
-
     private static double[] makeArray(double value1, double value2, double value3) {
         return new double[]{
                 value1, value2, value3
@@ -32,12 +25,12 @@ class MathUtils {
     }
 
     static String[] trigonometricFunctions = {
-            "Sin(\u03B8)",
-            "Cos(\u03B8)",
-            "Tan(\u03B8)",
-            "Cot(\u03B8)",
-            "Sec(\u03B8)",
-            "Cosec(\u03B8)"
+            "Sin(\u03B8):",
+            "Cos(\u03B8):",
+            "Tan(\u03B8):",
+            "Cot(\u03B8):",
+            "Sec(\u03B8):",
+            "Cosec(\u03B8):"
     };
 
     static String[] sidesPlaceHolderTheta = {
@@ -56,13 +49,6 @@ class MathUtils {
 
     private static double getCosine(double angle) { return Math.cos(Math.toRadians(angle)); }
 
-    private static double getTangent(double angle) { return Math.tan(Math.toRadians(angle)); }
-
-    private static double getCotangent(double angle) { return (1.0 / Math.tan(Math.toRadians(angle))); }
-
-    private static double getSecant(double angle) { return (1.0 / Math.cos(Math.toRadians(angle))); }
-
-    private static double getCosecant(double angle) { return (1.0 / Math.sin(Math.toRadians(angle))); }
     // -----------------------------------------------------------------------------------
     private static double getSine(double perp, double hypo) { return perp / hypo; }
 
@@ -84,10 +70,9 @@ class MathUtils {
                 return triangleCalculation(PERPENDICULAR, valueOfAngle, valueOfSide);
             case "BC":
                 return triangleCalculation(BASE, valueOfAngle, valueOfSide);
-            case "AC":
+            default:
                 return triangleCalculation(HYPOTENUSE, valueOfAngle, valueOfSide);
         }
-        return makeArray(1, 1, 1, 1, 1, 1);
     }
 
     static double[] performCalculationsForPhi(String side,
@@ -97,12 +82,12 @@ class MathUtils {
                 return triangleCalculation(BASE, valueOfAngle, valueOfSide);
             case "BC":
                 return triangleCalculation(PERPENDICULAR, valueOfAngle, valueOfSide);
-            case "AC":
+            default:
                 return triangleCalculation(HYPOTENUSE, valueOfAngle, valueOfSide);
         }
-        return makeArray(1, 1, 1, 1, 1, 1);
     }
 
+    // Used for second method
     public static double[] trigonometricCalculations(String side1, String side2,
                                                      double valueOfSide1, double valueOfSide2) {
         String AB = "AB";
