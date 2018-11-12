@@ -1,15 +1,18 @@
 package com.parassidhu.trigonomania;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.facebook.stetho.Stetho;
+import com.parassidhu.trigonomania.model.FirstMethodModel;
+import com.parassidhu.trigonomania.model.SecondMethodModel;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import butterknife.BindView;
@@ -35,16 +38,24 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.switch_side1) SwitchMultiButton switchSide1;
     @BindView(R.id.switch_side2) SwitchMultiButton switchSide2;
 
+    private MainViewModel mViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+        Stetho.initializeWithDefaults(this);
         initListeners();
+
+        setupViewModel();
 
         firstMethod.setVisibility(View.VISIBLE);
         secondMethod.setVisibility(View.GONE);
+    }
+
+    private void setupViewModel() {
+        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
     }
 
     private void initListeners() {
@@ -52,12 +63,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    if (switchMethod.getSelectedTab() == 0)
+                    if (switchMethod.getSelectedTab() == 0) {
                         handleFirstMethod();
-                    else {
-                        if (switchSide1.getSelectedTab() != switchSide2.getSelectedTab())
+                        FirstMethodModel calculation = new FirstMethodModel(switchAngle.getSelectedTab(),
+                                switchSide.getSelectedTab(), angleEditText.getText().toString(),
+                                sideEditText.getText().toString());
+
+                        // Add to database
+                        mViewModel.insertInFirstMethod(calculation);
+                    } else {
+                        if (switchSide1.getSelectedTab() != switchSide2.getSelectedTab()) {
                             handleSecondMethod();
-                        else
+                            SecondMethodModel calculation = new SecondMethodModel(switchSide1.getSelectedTab(),
+                                    switchSide2.getSelectedTab(), side1EditText.getText().toString(),
+                                    side2EditText.getText().toString());
+
+
+                        } else
                             Toast.makeText(MainActivity.this, "Please enter values of two distinct sides.",
                                     Toast.LENGTH_SHORT).show();
                     }

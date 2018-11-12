@@ -1,12 +1,17 @@
 package com.parassidhu.trigonomania.database;
 
+import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
+import com.parassidhu.trigonomania.model.FirstMethodModel;
+import com.parassidhu.trigonomania.model.SecondMethodModel;
+
+@Database(entities = {FirstMethodModel.class, SecondMethodModel.class}, version = 1, exportSchema = false)
 public abstract class MathDatabase extends RoomDatabase {
 
-    abstract MathDao mathDao();
+    public abstract MathDao mathDao();
 
     private static MathDatabase INSTANCE;
 
@@ -20,7 +25,6 @@ public abstract class MathDatabase extends RoomDatabase {
                             MathDatabase.class, DATABASE_NAME)
                             .allowMainThreadQueries()
                             .build();
-
                 }
             }
         }
