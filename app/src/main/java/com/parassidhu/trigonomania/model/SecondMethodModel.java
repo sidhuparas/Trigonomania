@@ -11,13 +11,14 @@ public class SecondMethodModel {
 
     private int side1, side2;
 
-    private String valueOfSide1, valueOfSide2;
+    private String valueOfSide1, valueOfSide2, data;
 
-    public SecondMethodModel(int side1, int side2, String valueOfSide1, String valueOfSide2) {
+    public SecondMethodModel(int side1, int side2, String valueOfSide1, String valueOfSide2, String data) {
         this.side1 = side1;
         this.side2 = side2;
         this.valueOfSide1 = valueOfSide1;
         this.valueOfSide2 = valueOfSide2;
+        this.data = data;
     }
 
     public int getId() {
@@ -38,6 +39,10 @@ public class SecondMethodModel {
 
     public String getValueOfSide2() {
         return valueOfSide2;
+    }
+
+    public String getData() {
+        return data;
     }
 
     public void setId(int id) {

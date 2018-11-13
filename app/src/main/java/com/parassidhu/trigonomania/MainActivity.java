@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,6 +15,8 @@ import com.facebook.stetho.Stetho;
 import com.parassidhu.trigonomania.model.FirstMethodModel;
 import com.parassidhu.trigonomania.model.SecondMethodModel;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,28 +66,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    if (switchMethod.getSelectedTab() == 0) {
+                    if (switchMethod.getSelectedTab() == 0)
                         handleFirstMethod();
-                        FirstMethodModel calculation = new FirstMethodModel(switchAngle.getSelectedTab(),
-                                switchSide.getSelectedTab(), angleEditText.getText().toString(),
-                                sideEditText.getText().toString());
-
-                        // Add to database
-                        mViewModel.insertInFirstMethod(calculation);
-                    } else {
-                        if (switchSide1.getSelectedTab() != switchSide2.getSelectedTab()) {
+                     else {
+                        if (switchSide1.getSelectedTab() != switchSide2.getSelectedTab())
                             handleSecondMethod();
-                            SecondMethodModel calculation = new SecondMethodModel(switchSide1.getSelectedTab(),
-                                    switchSide2.getSelectedTab(), side1EditText.getText().toString(),
-                                    side2EditText.getText().toString());
-
-
-                        } else
+                        else
                             Toast.makeText(MainActivity.this, "Please enter values of two distinct sides.",
                                     Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
-                    Toast.makeText(MainActivity.this, "Please fill correct values!",
+                    Toast.makeText(MainActivity.this, e.getMessage(),
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -125,10 +117,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void performCalculationsForFirstMethod(String angle, String side,
                                                    double valueOfAngle, double valueOfSide) {
-        if (angle.equals("Theta"))
-            setupResult(MathUtils.performCalculationsForTheta(side, valueOfAngle, valueOfSide));
-        else
-            setupResult(MathUtils.performCalculationsForPhi(side, valueOfAngle, valueOfSide));
+        double result[];
+        if (angle.equals("Theta")) {
+            result = MathUtils.performCalculationsForTheta(side, valueOfAngle, valueOfSide);
+            setupResult(result);
+        } else {
+            result = MathUtils.performCalculationsForPhi(side, valueOfAngle, valueOfSide);
+            setupResult(result);
+        }
+
+        FirstMethodModel calculation = new FirstMethodModel(switchAngle.getSelectedTab(),
+                switchSide.getSelectedTab(), angleEditText.getText().toString(),
+                sideEditText.getText().toString(), Arrays.toString(result));
+
+        // Add to database
+        mViewModel.insertInFirstMethod(calculation);
     }
 
     private void handleSecondMethod() {
@@ -148,7 +151,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void performCalculationsForSecondMethod(String side1, String side2,
                                                     double valueOfSide1, double valueOfSide2) {
-        setupResult(MathUtils.trigonometricCalculations(side1, side2, valueOfSide1, valueOfSide2));
+        double[] result = MathUtils.trigonometricCalculations(side1, side2, valueOfSide1, valueOfSide2);
+
+        setupResult(result);
+
+        SecondMethodModel calculation = new SecondMethodModel(switchSide1.getSelectedTab(),
+                switchSide2.getSelectedTab(), side1EditText.getText().toString(),
+                side2EditText.getText().toString(), Arrays.toString(result));
+
+        mViewModel.insertInSecondMethod(calculation);
     }
 
     private String assignSide(int sideSwitch){

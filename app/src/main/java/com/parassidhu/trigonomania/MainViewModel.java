@@ -9,7 +9,7 @@ import com.parassidhu.trigonomania.model.SecondMethodModel;
 
 public class MainViewModel extends AndroidViewModel {
 
-    TrigonometricRepo tRepo;
+    private TrigonometricRepo tRepo;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
@@ -18,5 +18,5 @@ public class MainViewModel extends AndroidViewModel {
 
     public void insertInFirstMethod(FirstMethodModel calculation) { tRepo.insertInFirstMethod(calculation) ;}
 
-    public void insertInSecondMethod(SecondMethodModel calculation) { tRepo.insertInSecondMethod(calculation); ;}
+    public void insertInSecondMethod(SecondMethodModel calculation) { tRepo.insertInSecondMethod(calculation); }
 }

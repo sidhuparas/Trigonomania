@@ -1,6 +1,5 @@
 package com.parassidhu.trigonomania.model;
 
-import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
@@ -16,11 +15,14 @@ public class FirstMethodModel {
     private String valueOfAngle;
     private String valueOfSide;
 
-    public FirstMethodModel(int angle, int side, String valueOfAngle, String valueOfSide) {
+    private String data;
+
+    public FirstMethodModel(int angle, int side, String valueOfAngle, String valueOfSide, String data) {
         this.angle = angle;
         this.side = side;
         this.valueOfAngle = valueOfAngle;
         this.valueOfSide = valueOfSide;
+        this.data = data;
     }
 
     public int getId() {
@@ -41,6 +43,10 @@ public class FirstMethodModel {
 
     public String getValueOfSide() {
         return valueOfSide;
+    }
+
+    public String getData() {
+        return data;
     }
 
     public void setId(int id) {
