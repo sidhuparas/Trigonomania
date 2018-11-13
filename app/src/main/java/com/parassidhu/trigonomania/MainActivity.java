@@ -1,12 +1,16 @@
 package com.parassidhu.trigonomania;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -68,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     if (switchMethod.getSelectedTab() == 0)
                         handleFirstMethod();
-                     else {
+                    else {
                         if (switchSide1.getSelectedTab() != switchSide2.getSelectedTab())
                             handleSecondMethod();
                         else
@@ -145,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
         double valueOfSide1 = Double.valueOf(side1EditText.getText().toString());
         double valueOfSide2 = Double.valueOf(side2EditText.getText().toString());
-        
+
         performCalculationsForSecondMethod(side1, side2, valueOfSide1, valueOfSide2);
     }
 
@@ -162,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
         mViewModel.insertInSecondMethod(calculation);
     }
 
-    private String assignSide(int sideSwitch){
+    private String assignSide(int sideSwitch) {
         if (sideSwitch == 0)
             return "AB";
         else if (sideSwitch == 1)
@@ -185,5 +189,23 @@ public class MainActivity extends AppCompatActivity {
         MathAdapter adapter = new MathAdapter(trigValues, theta);
 
         resultList.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.recent) {
+            Intent intent = new Intent(this, RecentActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
