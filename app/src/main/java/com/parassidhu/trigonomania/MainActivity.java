@@ -89,15 +89,19 @@ public class MainActivity extends AppCompatActivity {
         switchMethod.setOnSwitchListener(new SwitchMultiButton.OnSwitchListener() {
             @Override
             public void onSwitch(int position, String tabText) {
-                if (position == 0) {
-                    firstMethod.setVisibility(View.VISIBLE);
-                    secondMethod.setVisibility(View.GONE);
-                } else {
-                    firstMethod.setVisibility(View.GONE);
-                    secondMethod.setVisibility(View.VISIBLE);
-                }
+                toggleMethodVisibility(position);
             }
         });
+    }
+
+    private void toggleMethodVisibility(int position) {
+        if (position == 0) {
+            firstMethod.setVisibility(View.VISIBLE);
+            secondMethod.setVisibility(View.GONE);
+        } else {
+            firstMethod.setVisibility(View.GONE);
+            secondMethod.setVisibility(View.VISIBLE);
+        }
     }
 
     private void handleFirstMethod() {
@@ -198,5 +202,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        toggleMethodVisibility(switchMethod.getSelectedTab());
     }
 }

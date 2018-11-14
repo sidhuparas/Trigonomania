@@ -35,7 +35,11 @@ public class RecentActivity extends AppCompatActivity {
 
         init();
 
-        if (determineMethod() == 0)
+        setData(determineMethod());
+    }
+
+    private void setData(int i) {
+        if (i == 0)
             retrieveDataForFirstMethod();
         else
             retrieveDataForSecondMethod();
@@ -48,10 +52,7 @@ public class RecentActivity extends AppCompatActivity {
         switchMethod.setOnSwitchListener(new SwitchMultiButton.OnSwitchListener() {
             @Override
             public void onSwitch(int position, String tabText) {
-                if (position == 0)
-                    retrieveDataForFirstMethod();
-                else
-                    retrieveDataForSecondMethod();
+                setData(position);
             }
         });
     }
@@ -86,5 +87,11 @@ public class RecentActivity extends AppCompatActivity {
     private void retrieveDataForSecondMethod() {
         mViewModel.getFirstMethodData().removeObserver(firstObserver);
         mViewModel.getSecondMethodData().observe(this, secondObserver);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        setData(determineMethod());
     }
 }
