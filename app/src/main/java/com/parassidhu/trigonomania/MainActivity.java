@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,6 +15,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
+import com.parassidhu.trigonomania.adapters.MathAdapter;
 import com.parassidhu.trigonomania.model.FirstMethodModel;
 import com.parassidhu.trigonomania.model.SecondMethodModel;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         else
             angle = "Theta";
 
-        side = assignSide(sideSwitch);
+        side = MathUtils.assignSide(sideSwitch);
 
         double valueOfAngle = Double.valueOf(angleEditText.getText().toString());
         double valueOfSide = Double.valueOf(sideEditText.getText().toString());
@@ -144,8 +144,8 @@ public class MainActivity extends AppCompatActivity {
 
         String side1, side2;
 
-        side1 = assignSide(side1Switch);
-        side2 = assignSide(side2Switch);
+        side1 = MathUtils.assignSide(side1Switch);
+        side2 = MathUtils.assignSide(side2Switch);
 
         double valueOfSide1 = Double.valueOf(side1EditText.getText().toString());
         double valueOfSide2 = Double.valueOf(side2EditText.getText().toString());
@@ -164,15 +164,6 @@ public class MainActivity extends AppCompatActivity {
                 side2EditText.getText().toString(), Arrays.toString(result));
 
         mViewModel.insertInSecondMethod(calculation);
-    }
-
-    private String assignSide(int sideSwitch) {
-        if (sideSwitch == 0)
-            return "AB";
-        else if (sideSwitch == 1)
-            return "AC";
-        else
-            return "BC";
     }
 
     private void setupResult(double[] trigValues) {

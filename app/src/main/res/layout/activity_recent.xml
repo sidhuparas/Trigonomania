@@ -6,4 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".RecentActivity">
 
+    <lib.kingja.switchbutton.SwitchMultiButton
+        android:id="@+id/switch_method"
+        style="@style/SwitchStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:switchTabs="@array/tabs"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/calculation_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch_method" />
+
 </android.support.constraint.ConstraintLayout>

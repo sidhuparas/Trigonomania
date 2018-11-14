@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/recent"
-        android:title="Recent Calculations"
+        android:title="@string/recent_calculations"
         app:showAsAction="always"
         android:icon="@drawable/ic_recent_white" />
 

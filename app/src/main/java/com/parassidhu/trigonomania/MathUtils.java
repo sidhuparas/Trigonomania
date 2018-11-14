@@ -1,6 +1,6 @@
 package com.parassidhu.trigonomania;
 
-class MathUtils {
+public class MathUtils {
 
     private static final String PERPENDICULAR = "Perpendicular";
     private static final String BASE = "Base";
@@ -10,6 +10,15 @@ class MathUtils {
         return new double[]{
                 value1, value2, value3
         };
+    }
+
+    public static String assignSide(int sideSwitch) {
+        if (sideSwitch == 0)
+            return "AB";
+        else if (sideSwitch == 1)
+            return "AC";
+        else
+            return "BC";
     }
 
     private static double[] makeArrayOfTrigValues(double perp,
@@ -24,7 +33,7 @@ class MathUtils {
         };
     }
 
-    static String[] trigonometricFunctions = {
+    public static String[] trigonometricFunctions = {
             "Sin(\u03B8):",
             "Cos(\u03B8):",
             "Tan(\u03B8):",
@@ -33,13 +42,13 @@ class MathUtils {
             "Cosec(\u03B8):"
     };
 
-    static String[] sidesPlaceHolderTheta = {
+    public static String[] sidesPlaceHolderTheta = {
             "Perpendicular (AB):",
             "Base (BC):",
             "Hypotenuse (AC):"
     };
 
-    static String[] sidesPlaceHolderPhi = {
+    public static String[] sidesPlaceHolderPhi = {
             "Perpendicular (BC):",
             "Base (AB):",
             "Hypotenuse (AC):"
