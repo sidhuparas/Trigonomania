@@ -26,4 +26,9 @@ public class MainViewModel extends AndroidViewModel {
     public LiveData<List<FirstMethodModel>> getFirstMethodData(){ return tRepo.getFirstMethodData(); }
 
     public LiveData<List<SecondMethodModel>> getSecondMethodData(){ return tRepo.getSecondMethodData(); }
+
+    public void deleteAllFirstMethod(List<FirstMethodModel> list){ tRepo.deleteAllFirstMethod(list); }
+
+    public void deleteAllSecondMethod(List<SecondMethodModel> list){ tRepo.deleteAllSecondMethod(list); }
+
 }

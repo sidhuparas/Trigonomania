@@ -34,4 +34,8 @@ public class TrigonometricRepo {
     public LiveData<List<SecondMethodModel>> getSecondMethodData(){
         return mathDao.getSecondMethodData();
     }
+
+    public void deleteAllFirstMethod(List<FirstMethodModel> list){ mathDao.deleteAllFirstMethod(list); }
+
+    public void deleteAllSecondMethod(List<SecondMethodModel> list){ mathDao.deleteAllSecondMethod(list); }
 }

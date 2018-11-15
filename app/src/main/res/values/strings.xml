@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Trigonomania</string>
     <string name="recent_calculations">Recent Calculations</string>
+    <string name="clear_searches">Clear Searches</string>
+    <string name="empty_text">Nothing to show...</string>
 
     <string-array name="tabs">
         <item>1st Method</item>

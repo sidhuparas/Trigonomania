@@ -8,6 +8,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.parassidhu.trigonomania.adapters.CalculationsAdapter;
 import com.parassidhu.trigonomania.model.FirstMethodModel;
@@ -23,8 +28,11 @@ public class RecentActivity extends AppCompatActivity {
 
     @BindView(R.id.calculation_list) RecyclerView calculationList;
     @BindView(R.id.switch_method) SwitchMultiButton switchMethod;
+    @BindView(R.id.empty_tv) TextView emptyTv;
 
     private MainViewModel mViewModel;
+    private List<FirstMethodModel> firstList;
+    private List<SecondMethodModel> secondList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +73,10 @@ public class RecentActivity extends AppCompatActivity {
             if (list != null) {
                 CalculationsAdapter adapter = new CalculationsAdapter(list, true, 0);
                 calculationList.setAdapter(adapter);
+                firstList = list;
+
+                if (list.size() == 0) showEmptyState(true);
+                else  showEmptyState(false);
             }
         }
     };
@@ -75,6 +87,10 @@ public class RecentActivity extends AppCompatActivity {
             if (list != null) {
                 CalculationsAdapter adapter = new CalculationsAdapter(list, true, 1);
                 calculationList.setAdapter(adapter);
+                secondList = list;
+
+                if (list.size() == 0) showEmptyState(true);
+                else  showEmptyState(false);
             }
         }
     };
@@ -93,5 +109,34 @@ public class RecentActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         setData(determineMethod());
+    }
+
+    private void showEmptyState(boolean show){
+        if (show)
+            emptyTv.setVisibility(View.VISIBLE);
+        else
+            emptyTv.setVisibility(View.GONE);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_recent, menu);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.clear_searches){
+            if (firstList != null)
+                mViewModel.deleteAllFirstMethod(firstList);
+
+            if (secondList != null)
+                mViewModel.deleteAllSecondMethod(secondList);
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
