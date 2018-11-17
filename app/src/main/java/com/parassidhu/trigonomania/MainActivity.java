@@ -15,6 +15,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.parassidhu.trigonomania.adapters.MathAdapter;
 import com.parassidhu.trigonomania.model.FirstMethodModel;
 import com.parassidhu.trigonomania.model.SecondMethodModel;
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.resultList) RecyclerView resultList;
     @BindView(R.id.submit_btn) Button submitBtn;
     @BindView(R.id.switch_method) SwitchMultiButton switchMethod;
+    @BindView(R.id.adView) AdView adView;
 
     @BindView(R.id.first_method) ConstraintLayout firstMethod;
     @BindView(R.id.second_method) ConstraintLayout secondMethod;
@@ -46,19 +51,26 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.switch_side2) SwitchMultiButton switchSide2;
 
     private MainViewModel mViewModel;
+    private FirebaseAnalytics mAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        Stetho.initializeWithDefaults(this);
+        init();
         initListeners();
-
+        initAds();
         setupViewModel();
 
         firstMethod.setVisibility(View.VISIBLE);
         secondMethod.setVisibility(View.GONE);
+    }
+
+    private void init() {
+        ButterKnife.bind(this);
+        Stetho.initializeWithDefaults(this);
+        mAnalytics = FirebaseAnalytics.getInstance(this);
+        MobileAds.initialize(this, BuildConfig.APP_ID);
     }
 
     private void setupViewModel() {
@@ -69,13 +81,20 @@ public class MainActivity extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "1");
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "text");
+
                 try {
-                    if (switchMethod.getSelectedTab() == 0)
+                    if (switchMethod.getSelectedTab() == 0) {
                         handleFirstMethod();
-                    else {
-                        if (switchSide1.getSelectedTab() != switchSide2.getSelectedTab())
+                        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "FirstMethod");
+                        mAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+                    } else {
+                        if (switchSide1.getSelectedTab() != switchSide2.getSelectedTab()) {
                             handleSecondMethod();
-                        else
+                            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "SecondMethod");
+                        }else
                             Toast.makeText(MainActivity.this, "Please enter values of two distinct sides.",
                                     Toast.LENGTH_SHORT).show();
                     }
@@ -92,6 +111,13 @@ public class MainActivity extends AppCompatActivity {
                 toggleMethodVisibility(position);
             }
         });
+    }
+
+    private void initAds() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        adView.loadAd(adRequest);
     }
 
     private void toggleMethodVisibility(int position) {
