@@ -19,12 +19,22 @@ public class TrigonometricRepo {
         mathDao = database.mathDao();
     }
 
-    public void insertInFirstMethod(FirstMethodModel calculation) {
-        mathDao.insertInFirstMethod(calculation);
+    public void insertInFirstMethod(final FirstMethodModel calculation) {
+        AsyncWrapper.run(new AsyncWrapper.Task() {
+            @Override
+            public void during() {
+                mathDao.insertInFirstMethod(calculation);
+            }
+        });
     }
 
-    public void insertInSecondMethod(SecondMethodModel calculation) {
-        mathDao.insertInSecondMethod(calculation);
+    public void insertInSecondMethod(final SecondMethodModel calculation) {
+        AsyncWrapper.run(new AsyncWrapper.Task() {
+            @Override
+            public void during() {
+                mathDao.insertInSecondMethod(calculation);
+            }
+        });
     }
 
     public LiveData<List<FirstMethodModel>> getFirstMethodData(){
@@ -35,7 +45,21 @@ public class TrigonometricRepo {
         return mathDao.getSecondMethodData();
     }
 
-    public void deleteAllFirstMethod(List<FirstMethodModel> list){ mathDao.deleteAllFirstMethod(list); }
+    public void deleteAllFirstMethod(final List<FirstMethodModel> list){
+        AsyncWrapper.run(new AsyncWrapper.Task() {
+            @Override
+            public void during() {
+                mathDao.deleteAllFirstMethod(list);
+            }
+        });
+    }
 
-    public void deleteAllSecondMethod(List<SecondMethodModel> list){ mathDao.deleteAllSecondMethod(list); }
+    public void deleteAllSecondMethod(final List<SecondMethodModel> list){
+        AsyncWrapper.run(new AsyncWrapper.Task() {
+            @Override
+            public void during() {
+                mathDao.deleteAllSecondMethod(list);
+            }
+        });
+    }
 }

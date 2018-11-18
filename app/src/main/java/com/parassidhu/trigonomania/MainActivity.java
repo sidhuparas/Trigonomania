@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                         if (switchSide1.getSelectedTab() != switchSide2.getSelectedTab()) {
                             handleSecondMethod();
                             bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "SecondMethod");
-                        }else
+                        } else
                             Toast.makeText(MainActivity.this, "Please enter values of two distinct sides.",
                                     Toast.LENGTH_SHORT).show();
                     }
@@ -116,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
     private void initAds() {
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("8C71F010EEAB0BA5FAEAB369132AF709")
                 .build();
         adView.loadAd(adRequest);
     }
@@ -143,8 +144,15 @@ public class MainActivity extends AppCompatActivity {
 
         side = MathUtils.assignSide(sideSwitch);
 
-        double valueOfAngle = Double.valueOf(angleEditText.getText().toString());
-        double valueOfSide = Double.valueOf(sideEditText.getText().toString());
+        double valueOfAngle = 0;
+        double valueOfSide = 0;
+
+        try {
+            valueOfAngle = Double.valueOf(angleEditText.getText().toString());
+            valueOfSide = Double.valueOf(sideEditText.getText().toString());
+        } catch (Exception e) {
+            return;
+        }
 
         performCalculationsForFirstMethod(angle, side, valueOfAngle, valueOfSide);
     }
@@ -177,8 +185,15 @@ public class MainActivity extends AppCompatActivity {
         side1 = MathUtils.assignSide(side1Switch);
         side2 = MathUtils.assignSide(side2Switch);
 
-        double valueOfSide1 = Double.valueOf(side1EditText.getText().toString());
-        double valueOfSide2 = Double.valueOf(side2EditText.getText().toString());
+        double valueOfSide1 = 0;
+        double valueOfSide2 = 0;
+
+        try {
+            valueOfSide1 = Double.valueOf(side1EditText.getText().toString());
+            valueOfSide2 = Double.valueOf(side2EditText.getText().toString());
+        }catch (Exception e){
+            return;
+        }
 
         performCalculationsForSecondMethod(side1, side2, valueOfSide1, valueOfSide2);
     }
@@ -234,5 +249,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         toggleMethodVisibility(switchMethod.getSelectedTab());
+        submitBtn.callOnClick();
     }
 }

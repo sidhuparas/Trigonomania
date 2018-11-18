@@ -23,7 +23,6 @@ public abstract class MathDatabase extends RoomDatabase {
                 if (INSTANCE == null){
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             MathDatabase.class, DATABASE_NAME)
-                            .allowMainThreadQueries()
                             .build();
                 }
             }
