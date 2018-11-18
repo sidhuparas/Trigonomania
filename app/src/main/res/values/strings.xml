@@ -3,6 +3,14 @@
     <string name="recent_calculations">Recent Calculations</string>
     <string name="clear_searches">Clear Searches</string>
     <string name="empty_text">Nothing to show...</string>
+    <string name="triangle_image">Triangle Image</string>
+    <string name="submit">Submit</string>
+    <string name="value_of_angle">Value of Angle</string>
+    <string name="value_of_side">Value of Side</string>
+    <string name="angle">Angle</string>
+    <string name="side">Side</string>
+    <string name="side_1">Side 1</string>
+    <string name="side_2">Side 2</string>
 
     <string-array name="tabs">
         <item>1st Method</item>

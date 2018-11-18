@@ -31,7 +31,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/switch_method"
-            app:srcCompat="@drawable/triangle_img" />
+            app:srcCompat="@drawable/triangle_img"
+            android:contentDescription="@string/triangle_image" />
 
         <include layout="@layout/first_method"
             android:layout_height="wrap_content"
@@ -55,7 +56,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:background="@color/colorAccent"
-            android:text="Submit"
+            android:text="@string/submit"
             android:textColor="@android:color/background_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,8 +79,6 @@
             android:id="@+id/adView"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"

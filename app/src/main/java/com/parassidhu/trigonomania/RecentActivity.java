@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -71,7 +70,7 @@ public class RecentActivity extends AppCompatActivity {
         @Override
         public void onChanged(@Nullable List<FirstMethodModel> list) {
             if (list != null) {
-                CalculationsAdapter adapter = new CalculationsAdapter(list, true, 0);
+                CalculationsAdapter adapter = new CalculationsAdapter(list, 0);
                 calculationList.setAdapter(adapter);
                 firstList = list;
 
@@ -85,7 +84,7 @@ public class RecentActivity extends AppCompatActivity {
         @Override
         public void onChanged(@Nullable List<SecondMethodModel> list) {
             if (list != null) {
-                CalculationsAdapter adapter = new CalculationsAdapter(list, true, 1);
+                CalculationsAdapter adapter = new CalculationsAdapter(list, 1);
                 calculationList.setAdapter(adapter);
                 secondList = list;
 

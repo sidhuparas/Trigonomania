@@ -144,8 +144,8 @@ public class MainActivity extends AppCompatActivity {
 
         side = MathUtils.assignSide(sideSwitch);
 
-        double valueOfAngle = 0;
-        double valueOfSide = 0;
+        double valueOfAngle;
+        double valueOfSide;
 
         try {
             valueOfAngle = Double.valueOf(angleEditText.getText().toString());
@@ -185,8 +185,8 @@ public class MainActivity extends AppCompatActivity {
         side1 = MathUtils.assignSide(side1Switch);
         side2 = MathUtils.assignSide(side2Switch);
 
-        double valueOfSide1 = 0;
-        double valueOfSide2 = 0;
+        double valueOfSide1;
+        double valueOfSide2;
 
         try {
             valueOfSide1 = Double.valueOf(side1EditText.getText().toString());

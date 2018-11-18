@@ -19,16 +19,16 @@ public class MainViewModel extends AndroidViewModel {
         tRepo = new TrigonometricRepo(application);
     }
 
-    public void insertInFirstMethod(FirstMethodModel calculation) { tRepo.insertInFirstMethod(calculation) ;}
+    void insertInFirstMethod(FirstMethodModel calculation) { tRepo.insertInFirstMethod(calculation) ;}
 
-    public void insertInSecondMethod(SecondMethodModel calculation) { tRepo.insertInSecondMethod(calculation); }
+    void insertInSecondMethod(SecondMethodModel calculation) { tRepo.insertInSecondMethod(calculation); }
 
-    public LiveData<List<FirstMethodModel>> getFirstMethodData(){ return tRepo.getFirstMethodData(); }
+    LiveData<List<FirstMethodModel>> getFirstMethodData(){ return tRepo.getFirstMethodData(); }
 
-    public LiveData<List<SecondMethodModel>> getSecondMethodData(){ return tRepo.getSecondMethodData(); }
+    LiveData<List<SecondMethodModel>> getSecondMethodData(){ return tRepo.getSecondMethodData(); }
 
-    public void deleteAllFirstMethod(List<FirstMethodModel> list){ tRepo.deleteAllFirstMethod(list); }
+    void deleteAllFirstMethod(List<FirstMethodModel> list){ tRepo.deleteAllFirstMethod(list); }
 
-    public void deleteAllSecondMethod(List<SecondMethodModel> list){ tRepo.deleteAllSecondMethod(list); }
+    void deleteAllSecondMethod(List<SecondMethodModel> list){ tRepo.deleteAllSecondMethod(list); }
 
 }

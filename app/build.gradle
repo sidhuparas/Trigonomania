@@ -12,11 +12,22 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        debug {
+            keyAlias 'key'
+            keyPassword '12345678'
+            storeFile file("key.jks")
+            storePassword '12345678'
+        }
+    }
+
     buildTypes {
         debug {
             buildConfigField 'String', "APP_ID", app_id
             resValue 'string', "app_id", app_id
             resValue 'string', 'banner_id', TRIGONOMANIA_BANNER_ID
+            signingConfig signingConfigs.debug
         }
 
         release {
@@ -25,6 +36,7 @@ android {
             resValue 'string', 'banner_id', TRIGONOMANIA_BANNER_ID
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
 }

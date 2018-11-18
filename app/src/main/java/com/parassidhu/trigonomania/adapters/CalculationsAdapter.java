@@ -24,11 +24,9 @@ public class CalculationsAdapter extends RecyclerView.Adapter<CalculationsAdapte
 
     private List<FirstMethodModel> firstList;
     private List<SecondMethodModel> secondList;
-    private boolean theta;
-    private int itemType;
+    private final int itemType;
 
-    public CalculationsAdapter(List list, boolean theta, int itemType) {
-        this.theta = theta;
+    public CalculationsAdapter(List list, int itemType) {
         this.itemType = itemType;
         Collections.reverse(list);
         if (itemType == 0)
