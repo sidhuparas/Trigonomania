@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.parassidhu.trigonomania.MathUtils;
 import com.parassidhu.trigonomania.R;
 import com.parassidhu.trigonomania.model.FirstMethodModel;
@@ -45,13 +46,13 @@ public class CalculationsAdapter extends RecyclerView.Adapter<CalculationsAdapte
 
     @Override
     public void onBindViewHolder(@NonNull CalculationsAdapter.ViewHolder viewHolder, int i) {
-        Log.d("ItemType", "onBindViewHolder: " +viewHolder.getItemViewType());
+        Log.d("ItemType", "onBindViewHolder: " + viewHolder.getItemViewType());
         viewHolder.bind(i, itemType);
     }
 
     @Override
     public int getItemCount() {
-        if (itemType ==0)
+        if (itemType == 0)
             return firstList.size();
         else
             return secondList.size();
@@ -68,8 +69,8 @@ public class CalculationsAdapter extends RecyclerView.Adapter<CalculationsAdapte
             ButterKnife.bind(this, itemView);
         }
 
-        private String getAngleSign(int i){
-            if (i==0)
+        private String getAngleSign(int i) {
+            if (i == 0)
                 return "\u03C6";
             else
                 return "\u03B8";
@@ -77,32 +78,40 @@ public class CalculationsAdapter extends RecyclerView.Adapter<CalculationsAdapte
 
         @SuppressLint("SetTextI18n")
         void bind(int position, int itemType) {
-            if (itemType == 0){ // First Method
+            if (itemType == 0) { // First Method
                 FirstMethodModel item = firstList.get(position);
                 angle.setText("Angle (" + getAngleSign(item.getAngle()) + "): " + item.getValueOfAngle());
                 side.setText("Side (" + MathUtils.assignSide(item.getSide()) + "): " + item.getValueOfSide());
-                data.setText(item.getData());
+
+                String dataStr = item.getData();
+                dataStr = makeArray(dataStr, item.getAngle() == 0 ?
+                        MathUtils.sidesPlaceHolderPhi : MathUtils.sidesPlaceHolderTheta);
+
+                data.setText(dataStr);
+
             } else { // Second Method
                 SecondMethodModel item = secondList.get(position);
                 angle.setText("Side (" + MathUtils.assignSide(item.getSide1()) + "): " + item.getValueOfSide1());
                 side.setText("Side (" + MathUtils.assignSide(item.getSide2()) + "): " + item.getValueOfSide2());
-                data.setText(item.getData());
-            }
 
-           /* if (trigValues.length == 6) {
-                trigFunc.setText(MathUtils.trigonometricFunctions[position]);
-            } else {
-                if (theta)
-                    trigFunc.setText(MathUtils.sidesPlaceHolderTheta[position]);
-                else
-                    trigFunc.setText(MathUtils.sidesPlaceHolderPhi[position]);
-            }
+                String dataStr = item.getData();
+                dataStr = makeArray(dataStr, MathUtils.trigonometricFunctions);
 
-            for (int i = 0; i < trigValues.length; i++) {
-                trigValues[i] = Math.round(trigValues[i] * 100) / 100.0;
+                data.setText(dataStr);
             }
+        }
 
-            trigValue.setText(String.valueOf(trigValues[position]));
-      */  }
+        @NonNull
+        private String makeArray(String dataStr, String[] array) {
+            Gson gson = new Gson();
+            String[] dataArray = gson.fromJson(dataStr, String[].class);
+            String[] resultArray = new String[dataArray.length];
+            dataStr = "";
+            for (int i = 0; i < dataArray.length; i++) {
+                resultArray[i] = array[i] + Math.round(Double.valueOf(dataArray[i])*100)/100.0;
+                dataStr = dataStr.concat(resultArray[i]).concat("\n");
+            }
+            return dataStr;
+        }
     }
 }
