@@ -2,6 +2,9 @@ package com.parassidhu.trigonomania;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import com.parassidhu.trigonomania.database.MathDao;
 import com.parassidhu.trigonomania.database.MathDatabase;
@@ -13,6 +16,10 @@ import java.util.List;
 public class TrigonometricRepo {
 
     private MathDao mathDao;
+    private static SharedPreferences sharedPreferences;
+    private static SharedPreferences.Editor editor;
+
+    private static final String LIST_DATA = "list_data";
 
     public TrigonometricRepo(Application application) {
         MathDatabase database = MathDatabase.getDatabase(application);
@@ -37,15 +44,15 @@ public class TrigonometricRepo {
         });
     }
 
-    public LiveData<List<FirstMethodModel>> getFirstMethodData(){
+    public LiveData<List<FirstMethodModel>> getFirstMethodData() {
         return mathDao.getFirstMethodData();
     }
 
-    public LiveData<List<SecondMethodModel>> getSecondMethodData(){
+    public LiveData<List<SecondMethodModel>> getSecondMethodData() {
         return mathDao.getSecondMethodData();
     }
 
-    public void deleteAllFirstMethod(final List<FirstMethodModel> list){
+    public void deleteAllFirstMethod(final List<FirstMethodModel> list) {
         AsyncWrapper.run(new AsyncWrapper.Task() {
             @Override
             public void during() {
@@ -54,12 +61,26 @@ public class TrigonometricRepo {
         });
     }
 
-    public void deleteAllSecondMethod(final List<SecondMethodModel> list){
+    public void deleteAllSecondMethod(final List<SecondMethodModel> list) {
         AsyncWrapper.run(new AsyncWrapper.Task() {
             @Override
             public void during() {
                 mathDao.deleteAllSecondMethod(list);
             }
         });
+    }
+
+    public static void initSharedPreferences(Context context) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        editor = sharedPreferences.edit();
+    }
+
+    public static void saveData(String listString) {
+        editor.putString(LIST_DATA, listString);
+        editor.apply();
+    }
+
+    public static String getData(){
+        return sharedPreferences.getString(LIST_DATA, "");
     }
 }

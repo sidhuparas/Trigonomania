@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.gson.Gson;
 import com.parassidhu.trigonomania.adapters.MathAdapter;
 import com.parassidhu.trigonomania.model.FirstMethodModel;
 import com.parassidhu.trigonomania.model.SecondMethodModel;
@@ -171,6 +173,9 @@ public class MainActivity extends AppCompatActivity {
         FirstMethodModel calculation = new FirstMethodModel(switchAngle.getSelectedTab(),
                 switchSide.getSelectedTab(), angleEditText.getText().toString(),
                 sideEditText.getText().toString(), Arrays.toString(result));
+
+        Gson gson = new Gson();
+        TrigonometricRepo.saveData(gson.toJson(calculation));
 
         // Add to database
         mViewModel.insertInFirstMethod(calculation);
