@@ -19,7 +19,7 @@ public class MathWidget extends AppWidgetProvider {
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.math_widget);
         views.setTextViewText(R.id.name, widgetText);
-        views.setRemoteAdapter(R.id.list, null);
+        views.setRemoteAdapter(R.id.list, MathListWidgetService.createIntent(context, appWidgetId));
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }

@@ -175,6 +175,8 @@ public class MainActivity extends AppCompatActivity {
                 sideEditText.getText().toString(), Arrays.toString(result));
 
         Gson gson = new Gson();
+
+        TrigonometricRepo.initSharedPreferences(this);
         TrigonometricRepo.saveData(gson.toJson(calculation));
 
         // Add to database
